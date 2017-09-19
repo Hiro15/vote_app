@@ -1,0 +1,28 @@
+This is <font color='red'>boards/page.html</font><br>
+  <% if logged_in? %>
+  Name:<%= current_user.name %></br>
+  Email:<%= current_user.email %></br>
+  登録日時:<%= current_user.created_at %><br>
+  <%= link_to '退会', sessions_delete_path,method: :delete%>
+  <% else %>
+  <br>ログインしてください
+  <%= form_for(:session, url: login_path) do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %></br>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.submit "login" %>
+    <br><%= link_to '新規登録', vote_new_path %>
+  <% end %>
+  <% end %>
+
+
+  投稿履歴<br>
+  ----------------------------------------------------------------------<br>
+
+
+  <% @comments.each do |all| %>
+  投稿者:<%= all.name %> 投稿日時:<%= all.created_at %><br>
+  <%= all.body %><br>
+  -----------------------------------------------------------------------<br>
+  <% end %>

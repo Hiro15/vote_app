@@ -1,0 +1,39 @@
+This is <font color='red'>boards/top.html</font><br>
+<% if logged_in? %>
+<%= current_user.name %></br>
+<%= current_user.email %>
+
+<%= link_to "Log out", logout_path, method: :delete %>
+<%= link_to 'My page', boards_page_path%>
+
+<%= form_tag('/boards/top',method: :post) do %>
+コメント:
+<%= text_field_tag :body %></br>
+<%= submit_tag "投稿" %>
+<% end %>
+
+
+<% else %>
+<br>ログインしてください
+<%= form_for(:session, url: login_path) do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %></br>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.submit "login" %>
+  <br><%= link_to '新規登録', vote_new_path %>
+<% end %>
+<% end %>
+
+---------------------------------------------------------------------------<br>
+<% @comments.each do |all| %>
+投稿者:<%= all.name %> 投稿日時:<%= all.created_at %><br>
+<%= all.body %>
+<% if logged_in? && all.name_id==current_user.id %>
+　　　　　　　　　　　　　　　　　　　<%= link_to '削除', boards_delete_path(all.id),:method =>:delete,date:{:confirm =>'削除しますか？' }%><br>
+<% else %>
+<br>
+<% end %>
+
+---------------------------------------------------------------------------<br>
+<% end %>

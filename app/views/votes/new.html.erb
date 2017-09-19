@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <head>
+          <title>create</title>
+    </head>
+    <body>
+     this is <font color='red'>new.html.erb</font><br>
+     <% if @user.errors.any? %>
+     <%= @user.errors.count %>件のエラーがあります。
+     <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+
+    <% end %>
+    </ul>
+       <%= form_for(@user, url: vote_create_path) do |f| %>
+       <%= f.label :name %></br>
+       <%= f.text_field :name %></br>
+       <%= f.label :email %></br>
+       <%= f.email_field :email %></br>
+       <%= f.label :password %></br>
+       <%= f.password_field :password %></br>
+       <%= f.label :password_confirmation %></br>
+       <%= f.password_field :password_confirmation %></br>
+       <%= f.submit "Create my account" %>
+       <% end %>
+    </body>
